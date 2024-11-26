@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+
+:root{
+    --primary: #02FC5D;
+    --secondary: #2DFB77;
+    --white-faded: #F2F2F2;
+    --gray-faded: #D9D9D9;
+    
+}
+}
+
+.radius-xl{
+    border-radius: 35px;
+}
