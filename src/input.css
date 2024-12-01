@@ -16,3 +16,6 @@
 .radius-xl{
     border-radius: 35px;
 }
+.active{
+    border:1px solid var(--primary);
+}

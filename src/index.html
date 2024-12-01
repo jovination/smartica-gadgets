@@ -30,7 +30,7 @@
       </div>
       <div class="flex items-center justify-around mt-8">
         <div class="cursor-pointer">
-          <div class="p-2 border border-[--primary] radius-xl">
+          <div class="product-card p-2 radius-xl">
           <img width="200"  src="/public/airpodspro.png" alt="">
           </div>
           <p class="m-4 text-center text-base">
@@ -38,7 +38,7 @@
           </p>
         </div>
         <div class="cursor-pointer">
-          <div class="p-2  radius-xl">
+          <div class="product-card p-2  radius-xl">
             <img width="200" src="/public/airpodspro.png" alt="">
           </div>
           <p class="m-4  text-center text-base">
@@ -48,35 +48,28 @@
 
       </div>
       <div class="flex justify-center mt-4">
-        <div class="px-6 py-4 bg-[--gray-faded] rounded-2xl flex flex-col gap-1">
-        <span class="text-lg font-semibold">
-          AirPods Pro (1st Generation)
+        <div class="px-6 py-4 bg-[--gray-faded] rounded-2xl flex flex-col gap-1 w-[530px]">
+        <span id="product-title" class="text-lg font-semibold">
         </span>
-        <p class="text-sm">
-          Immersive Noise Cancellation: Silence distractions for clear audio. <br>
-Comfortable Fit: Silicone tips in three sizes for all-day wear. <br>
-Adaptive EQ: Automatically tunes music for a rich listening experience.
-        </p>
+          <p id="details-features" class="text-sm">
+          </p>
       </div>
       </div>
       <div class="flex items-center justify-between mt-6 mx-8">
         <div class="flex items-center gap-4">
-          <div> 
-            <img src="/public/minus.svg" alt="">
+          <div>
+            <img id="decrease-quantity" src="/public/minus.svg" alt="Decrease Quantity" class="cursor-pointer">
           </div>
-          <span>1</span>
-          <div  class="inline-block w-[30px] bg-black rounded-full ml-2">
-            <img src="/public/plus.svg" alt="">
+          <span id="quantity" class="font-semibold">1</span> <!-- Display initial quantity -->
+          <div class="inline-block w-[30px] bg-black rounded-full ml-2 cursor-pointer">
+            <img  id="increase-quantity" src="/public/plus.svg" alt="Increase Quantity">
           </div>
         </div>
-
         <div>
-          <span class="text-lg font-semibold" >
-            Tsh 35,000/=
-          </span>
+          <span id="details-price" class="text-lg font-semibold"></span>
         </div>
-
       </div>
+      
 
       <div class=" flex items-center  justify-center mt-12" >
         <span
@@ -89,5 +82,68 @@ Adaptive EQ: Automatically tunes music for a rich listening experience.
 
     </section>
  </main>
+ <script type="module">
+ import AirpodsProductsData from '../data/AirpodsData.js';
+
+const productTitle = document.querySelector("#product-title");
+const productFeatures = document.querySelector("#details-features");
+const productPrice = document.querySelector("#details-price");
+
+const productCards = document.querySelectorAll(".product-card");
+
+let quantity = 1; 
+
+const getCleanPrice = (priceString) => {
+  return parseInt(priceString.replace(/[,/=\s]/g, ""), 10);
+};
+
+const updateProductDetails = (index) => {
+  const product = AirpodsProductsData[index];
+  productTitle.textContent = product.name;
+  productFeatures.innerHTML = product.features.map((f) => `${f}<br>`).join("");
+  const cleanPrice = getCleanPrice(product.price);
+  productPrice.textContent = `Tsh ${cleanPrice * quantity}`;
+};
+
+const updatePrice = () => {
+  const activeIndex = Array.from(productCards).findIndex((card) =>
+    card.classList.contains("active")
+  );
+  const product = AirpodsProductsData[activeIndex];
+  const cleanPrice = getCleanPrice(product.price);
+  productPrice.textContent = `Tsh ${cleanPrice * quantity}`;
+};
+
+document.getElementById("increase-quantity").addEventListener("click", () => {
+  quantity++;
+  document.getElementById("quantity").textContent = quantity; 
+  updatePrice(); 
+});
+
+document.getElementById("decrease-quantity").addEventListener("click", () => {
+  if (quantity > 1) {
+    quantity--;
+    document.getElementById("quantity").textContent = quantity; 
+    updatePrice();
+  }
+});
+
+productCards.forEach((card, index) => {
+  if (index === 0) {
+    card.classList.add("active");
+    updateProductDetails(index);
+  }
+
+  card.addEventListener("click", () => {
+    productCards.forEach((c) => c.classList.remove("active"));
+    card.classList.add("active");
+    updateProductDetails(index);
+  });
+});
+
+</script>
+
+
+
 </body>
 </html>
