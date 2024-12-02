@@ -1,7 +1,7 @@
 const AirpodsProductsData = [
     {
       id: 1,
-      name: "AirPods Pro (1st Generation)",
+      name: "AirPods Pro (1st Gen)",
       features: [
         "Immersive Noise Cancellation: Silence distractions for clear audio.",
         "Comfortable Fit: Silicone tips in three sizes for all-day wear.",
@@ -11,7 +11,7 @@ const AirpodsProductsData = [
     },
     {
       id: 2,
-      name: "AirPods Pro (2nd Generation)",
+      name: "AirPods Pro (2nd Gen)",
       features: [
         "Pro-Level Noise Cancellation: AirPods Pro 2 feature Adaptive Audio.",
         "USB-C Charging: Convenient and future-ready with a durable design.",

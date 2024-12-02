@@ -12,8 +12,8 @@
       <div class="w-full px-2 py-2 h-auto">
         <img width="210" src="/public/smartcagadgets.png" alt="">
       </div>
-       <div class="flex items-center justify-center mt-10">
-        <img width="250" src="/public/case.png" alt="">
+       <div class="flex items-center justify-center mt-12">
+        <img width="270" src="/public/case.png" alt="">
        </div>
        <div>
         <p class="text-white text-center text-4xl mt-12">        
@@ -57,13 +57,12 @@
       </div>
       <div class="flex items-center justify-between mt-6 mx-8">
         <div class="flex items-center gap-4">
-          <div>
-            <img id="decrease-quantity" src="/public/minus.svg" alt="Decrease Quantity" class="cursor-pointer">
+          <div id="decrease-quantity" class="cursor-pointer">
+            <?xml version="1.0" ?><svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><polygon fill-rule="evenodd" points="2 9 2 7 14 7 14 9"/></svg>                
           </div>
           <span id="quantity" class="font-semibold">1</span> <!-- Display initial quantity -->
-          <div class="inline-block w-[30px] bg-black rounded-full ml-2 cursor-pointer">
-            <img  id="increase-quantity" src="/public/plus.svg" alt="Increase Quantity">
-          </div>
+          <div  id="increase-quantity" class="inline-block w-[28px] bg-black rounded-full ml-2 cursor-pointer p-[6px]">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2z" fill="#fffafa" class="fill-000000"></path></svg>          </div>
         </div>
         <div>
           <span id="details-price" class="text-lg font-semibold"></span>
@@ -73,75 +72,193 @@
 
       <div class=" flex items-center  justify-center mt-12" >
         <span
-        class="bg-black text-center text-sm text-[--white-faded] w-[510px] h-10 rounded-lg flex items-center justify-center">
+        id = "openModal"
+        class="bg-black text-center text-sm text-[--white-faded] w-[530px] h-10 rounded-lg flex items-center justify-center cursor-pointer">
         Order Now
       </span>
       </div>
      </div>
+     <div id="orderModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+      <div class="relative bg-[--white-faded] rounded-3xl shadow-lg w-full max-w-2xl mx-auto p-6">
+        <button
+        id="closeModal"
+        class="group absolute top-2 right-2 p-4 text-sm text-gray-500 underline hover:text-gray-700"
+      >
+        <img width="18" src="/public/close.svg" alt="close icon">
+      </button>
+      <div class="flex justify-center">
+        <h3 class="text-xl font-semibold">Ordering Form</h3>
+      </div>
+      <div>
+        <span class="text-sm text-gray-500">
+          Selected Airpods
+        </span>
+        <div class="w-full border border-gray-700/60 rounded-xl p-4 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img width="28" src="/public/airpodsvg.svg" alt="">
+               <span id="modal-product-detail" class="text-sm text-black">
+                
+               </span>
+            </div>
+            <span class="text-sm font-medium underline underline-offset-1">
+              Change Options
+            </span>
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-black">
+                Orders
+              </span>
+              <div class="flex items-center gap-2">
+                <div id="modal-decrease-quantity" class="cursor-pointer">
+                  <?xml version="1.0" ?><svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><polygon fill-rule="evenodd" points="2 9 2 7 14 7 14 9"/></svg>                
+                </div>
+                <span id="modal-quantity" class=" text-sm font-semibold">1</span> 
+                <div id="modal-increase-quantity" class="inline-block w-[20px] bg-black rounded-full  cursor-pointer ml-2 p-1">
+                  <svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2z" fill="#fffafa" class="fill-000000"></path></svg>                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-black">
+             Products
+            </span>
+            <div class="text-sm font-semibold">
+              <span>Tsh </span><span id="modal-product-price">35000</span> 
+            </div>
+          </d>
+          
 
+        </div>
+      </div>
+
+  </div>
+     </div>
 
     </section>
  </main>
  <script type="module">
- import AirpodsProductsData from '../data/AirpodsData.js';
-
-const productTitle = document.querySelector("#product-title");
-const productFeatures = document.querySelector("#details-features");
-const productPrice = document.querySelector("#details-price");
-
-const productCards = document.querySelectorAll(".product-card");
-
-let quantity = 1; 
-
-const getCleanPrice = (priceString) => {
-  return parseInt(priceString.replace(/[,/=\s]/g, ""), 10);
-};
-
-const updateProductDetails = (index) => {
-  const product = AirpodsProductsData[index];
-  productTitle.textContent = product.name;
-  productFeatures.innerHTML = product.features.map((f) => `${f}<br>`).join("");
-  const cleanPrice = getCleanPrice(product.price);
-  productPrice.textContent = `Tsh ${cleanPrice * quantity}`;
-};
-
-const updatePrice = () => {
-  const activeIndex = Array.from(productCards).findIndex((card) =>
-    card.classList.contains("active")
-  );
-  const product = AirpodsProductsData[activeIndex];
-  const cleanPrice = getCleanPrice(product.price);
-  productPrice.textContent = `Tsh ${cleanPrice * quantity}`;
-};
-
-document.getElementById("increase-quantity").addEventListener("click", () => {
-  quantity++;
-  document.getElementById("quantity").textContent = quantity; 
-  updatePrice(); 
-});
-
-document.getElementById("decrease-quantity").addEventListener("click", () => {
-  if (quantity > 1) {
-    quantity--;
-    document.getElementById("quantity").textContent = quantity; 
+  import AirpodsProductsData from '../data/AirpodsData.js';
+  
+  const productTitle = document.querySelector("#product-title");
+  const productFeatures = document.querySelector("#details-features");
+  const productPrice = document.querySelector("#details-price");
+  
+  const productCards = document.querySelectorAll(".product-card");
+  const openModal = document.getElementById('openModal');
+  const orderModal = document.getElementById('orderModal');
+  const closeModal = document.getElementById('closeModal');
+  
+  const modalProductDetail = document.getElementById("modal-product-detail");
+  const modalQuantity = document.getElementById("modal-quantity");
+  const modalProductPrice = document.getElementById("modal-product-price");
+  const modalIncreaseQuantity = document.getElementById("modal-increase-quantity");
+  const modalDecreaseQuantity = document.getElementById("modal-decrease-quantity");
+  
+  let mainQuantity = 1;
+  let modalQuantityValue = 1;
+  
+  const getCleanPrice = (priceString) => {
+    return parseInt(priceString.replace(/[,/=\s]/g, ""), 10);
+  };
+  
+  const updateProductDetails = (index) => {
+    const product = AirpodsProductsData[index];
+    productTitle.textContent = product.name;
+    productFeatures.innerHTML = product.features.map((f) => `${f}<br>`).join("");
+    const cleanPrice = getCleanPrice(product.price);
+    productPrice.textContent = `Tsh ${cleanPrice * mainQuantity}`;
+  };
+  
+  const updatePrice = () => {
+    const activeIndex = Array.from(productCards).findIndex((card) =>
+      card.classList.contains("active")
+    );
+    const product = AirpodsProductsData[activeIndex];
+    const cleanPrice = getCleanPrice(product.price);
+    productPrice.textContent = `Tsh ${cleanPrice * mainQuantity}`;
+  };
+  
+  document.getElementById("increase-quantity").addEventListener("click", () => {
+    mainQuantity++;
+    document.getElementById("quantity").textContent = mainQuantity;
     updatePrice();
-  }
-});
-
-productCards.forEach((card, index) => {
-  if (index === 0) {
-    card.classList.add("active");
-    updateProductDetails(index);
-  }
-
-  card.addEventListener("click", () => {
-    productCards.forEach((c) => c.classList.remove("active"));
-    card.classList.add("active");
-    updateProductDetails(index);
   });
-});
-
-</script>
+  
+  document.getElementById("decrease-quantity").addEventListener("click", () => {
+    if (mainQuantity > 1) {
+      mainQuantity--;
+      document.getElementById("quantity").textContent = mainQuantity;
+      updatePrice();
+    }
+  });
+  
+  productCards.forEach((card, index) => {
+    if (index === 0) {
+      card.classList.add("active");
+      updateProductDetails(index);
+    }
+  
+    card.addEventListener("click", () => {
+      mainQuantity = 1; 
+     document.getElementById("quantity").textContent = mainQuantity;
+      productCards.forEach((c) => c.classList.remove("active"));
+      card.classList.add("active");
+      updateProductDetails(index);
+    });
+  });
+  
+  openModal.addEventListener("click", () => {
+    orderModal.classList.remove("hidden");
+  
+    const activeIndex = Array.from(productCards).findIndex((card) =>
+      card.classList.contains("active")
+    );
+    const activeProduct = AirpodsProductsData[activeIndex];
+  
+    modalQuantityValue = mainQuantity;
+    modalProductDetail.textContent = activeProduct.name;
+    modalQuantity.textContent = modalQuantityValue;
+    const cleanPrice = getCleanPrice(activeProduct.price);
+    modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
+  });
+  
+  modalIncreaseQuantity.addEventListener("click", () => {
+    modalQuantityValue++;
+    const activeIndex = Array.from(productCards).findIndex((card) =>
+      card.classList.contains("active")
+    );
+    const activeProduct = AirpodsProductsData[activeIndex];
+    const cleanPrice = getCleanPrice(activeProduct.price);
+    modalQuantity.textContent = modalQuantityValue;
+    modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
+  });
+  
+  modalDecreaseQuantity.addEventListener("click", () => {
+    if (modalQuantityValue > 1) {
+      modalQuantityValue--;
+      const activeIndex = Array.from(productCards).findIndex((card) =>
+        card.classList.contains("active")
+      );
+      const activeProduct = AirpodsProductsData[activeIndex];
+      const cleanPrice = getCleanPrice(activeProduct.price);
+      modalQuantity.textContent = modalQuantityValue;
+      modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
+    }
+  });
+  
+  closeModal.addEventListener('click', () => {
+    orderModal.classList.add('hidden');
+  });
+  
+  window.addEventListener('click', (event) => {
+    if (event.target === orderModal) {
+      orderModal.classList.add('hidden');
+    }
+  });
+  </script>
+  
 
 
 

@@ -17,5 +17,5 @@
     border-radius: 35px;
 }
 .active{
-    border:1px solid var(--primary);
+    border:1.5px solid var(--primary);
 }
