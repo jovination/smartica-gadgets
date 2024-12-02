@@ -29,25 +29,25 @@
         </p>
       </div>
       <div class="flex items-center justify-around mt-8">
-        <div class="cursor-pointer">
+        <div class="cursor-pointer flex flex-col gap-4">
           <div class="product-card p-2 radius-xl">
           <img width="200"  src="/public/airpodspro.png" alt="">
           </div>
-          <p class="m-4 text-center text-base">
+          <p class="text-center text-base">
            Aipods Pro
           </p>
         </div>
-        <div class="cursor-pointer">
+        <div class="cursor-pointer flex flex-col gap-4">
           <div class="product-card p-2  radius-xl">
             <img width="200" src="/public/airpodspro.png" alt="">
           </div>
-          <p class="m-4  text-center text-base">
+          <p class=" text-center text-base">
             Aipods Pro 2
           </>
         </div>
 
       </div>
-      <div class="flex justify-center mt-4">
+      <div class="flex justify-center mt-6">
         <div class="px-6 py-4 bg-[--gray-faded] rounded-2xl flex flex-col gap-1 w-[530px]">
         <span id="product-title" class="text-lg font-semibold">
         </span>
@@ -60,7 +60,7 @@
           <div id="decrease-quantity" class="cursor-pointer">
             <?xml version="1.0" ?><svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><polygon fill-rule="evenodd" points="2 9 2 7 14 7 14 9"/></svg>                
           </div>
-          <span id="quantity" class="font-semibold">1</span> <!-- Display initial quantity -->
+          <span id="quantity" class="font-semibold w-2">1</span> <!-- Display initial quantity -->
           <div  id="increase-quantity" class="inline-block w-[28px] bg-black rounded-full ml-2 cursor-pointer p-[6px]">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2z" fill="#fffafa" class="fill-000000"></path></svg>          </div>
         </div>
@@ -73,24 +73,24 @@
       <div class=" flex items-center  justify-center mt-12" >
         <span
         id = "openModal"
-        class="bg-black text-center text-sm text-[--white-faded] w-[530px] h-10 rounded-lg flex items-center justify-center cursor-pointer">
+        class="bg-black text-center text-sm text-[--white-faded] w-[530px] h-11 rounded-lg flex items-center justify-center cursor-pointer">
         Order Now
       </span>
       </div>
      </div>
-     <div id="orderModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-      <div class="relative bg-[--white-faded] rounded-3xl shadow-lg w-full max-w-2xl mx-auto p-6">
+     <div id="orderModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-6">
+      <div class="relative bg-[--white-faded] rounded-3xl shadow-lg w-full max-w-xl mx-auto p-6">
         <button
         id="closeModal"
-        class="group absolute top-2 right-2 p-4 text-sm text-gray-500 underline hover:text-gray-700"
+        class="group absolute top-2 right-2 p-4 "
       >
-        <img width="18" src="/public/close.svg" alt="close icon">
+        <img width="15" src="/public/close.svg" alt="close icon">
       </button>
       <div class="flex justify-center">
         <h3 class="text-xl font-semibold">Ordering Form</h3>
       </div>
       <div>
-        <span class="text-sm text-gray-500">
+        <span class="text-sm text-gray-500 mb-1">
           Selected Airpods
         </span>
         <div class="w-full border border-gray-700/60 rounded-xl p-4 flex flex-col gap-2">
@@ -98,7 +98,7 @@
             <div class="flex items-center gap-3">
               <img width="28" src="/public/airpodsvg.svg" alt="">
                <span id="modal-product-detail" class="text-sm text-black">
-                
+
                </span>
             </div>
             <span class="text-sm font-medium underline underline-offset-1">
@@ -114,7 +114,7 @@
                 <div id="modal-decrease-quantity" class="cursor-pointer">
                   <?xml version="1.0" ?><svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><polygon fill-rule="evenodd" points="2 9 2 7 14 7 14 9"/></svg>                
                 </div>
-                <span id="modal-quantity" class=" text-sm font-semibold">1</span> 
+                <span id="modal-quantity" class="text-sm font-semibold w-1">1</span> 
                 <div id="modal-increase-quantity" class="inline-block w-[20px] bg-black rounded-full  cursor-pointer ml-2 p-1">
                   <svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2z" fill="#fffafa" class="fill-000000"></path></svg>                </div>
               </div>
@@ -127,10 +127,106 @@
             <div class="text-sm font-semibold">
               <span>Tsh </span><span id="modal-product-price">35000</span> 
             </div>
-          </d>
+          </div>
+          
           
 
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+        <!-- Name -->
+         <div class="space-y-2">
+            <div>
+              <label class="block text-gray-500 text-sm ml-1">Full Name*</label>
+              <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg class="w-5 h-5"
+                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" fill="#080808" r="4" class="fill-464646"></circle><path d="M20 19v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6Z" fill="#080808" class="fill-464646"></path>
+                      </svg>
+                    </div>
+
+                    <input
+                        type="text"
+                        name=""
+                        id=""
+                        placeholder="Enter your full name"
+                        class="w-full bg-[--white-faded] border border-gray-700/60 rounded-xl px-12 py-3 text-black focus:outline-none focus:border-black-500/40 focus:ring-1 focus:ring-gray-500/20 transition-all duration-200"
+                        />
+                </div>
+            </div>
+        </div>
+        <!-- Phone -->       
+        <div class="space-y-2">
+          <div>
+            <label class="block text-gray-500 text-sm ml-1">Phone Number*</label>
+            <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect fill="none" height="256" width="256"/><path d="M222,158.4l-46.9-20a15.6,15.6,0,0,0-15.1,1.3l-25.1,16.7a76.5,76.5,0,0,1-35.2-35h0L116.3,96a15.9,15.9,0,0,0,1.4-15.1L97.6,34a16.3,16.3,0,0,0-16.7-9.6A56.2,56.2,0,0,0,32,80c0,79.4,64.6,144,144,144a56.2,56.2,0,0,0,55.6-48.9A16.3,16.3,0,0,0,222,158.4Z"/>
+                    </svg>
+                  </div>
+
+                  <input
+                     type="tel"
+                      name=""
+                      id=""
+                      placeholder="Enter your  Phone"
+                      class="w-full bg-[--white-faded] border border-gray-700/60 rounded-xl px-12 py-3 text-black focus:outline-none focus:border-black-500/40 focus:ring-1 focus:ring-gray-500/20 transition-all duration-200"
+                      />
+              </div>
+          </div>
+      </div>
+      <!--Email-->
+      <div class="space-y-2 md:col-span-2">
+        <div>
+          <label class="block text-gray-500 text-sm ml-1">Email*</label>
+          <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg  class="w-5 h-5"
+                  style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="info"/><g id="icons"><path d="M20,3H4C1.8,3,0,4.8,0,7v10c0,2.2,1.8,4,4,4h16c2.2,0,4-1.8,4-4V7C24,4.8,22.2,3,20,3z M21.6,8.8l-7.9,5.3   c-0.5,0.3-1.1,0.5-1.7,0.5s-1.2-0.2-1.7-0.5L2.4,8.8C2,8.5,1.9,7.9,2.2,7.4C2.5,7,3.1,6.9,3.6,7.2l7.9,5.3c0.3,0.2,0.8,0.2,1.1,0   l7.9-5.3c0.5-0.3,1.1-0.2,1.4,0.3C22.1,7.9,22,8.5,21.6,8.8z" id="email"/></g>
+                  </svg>
+                </div>
+
+                <input
+                    type="email"
+                    name=""
+                    id=""
+                    placeholder="Enter your  Email"
+                    class="w-full bg-[--white-faded] border border-gray-700/60 rounded-xl px-12 py-3 text-black focus:outline-none focus:border-black-500/40 focus:ring-1 focus:ring-gray-500/20 transition-all duration-200"
+                    />
+            </div>
+        </div>
+    </div>
+<!--address-->
+    <div class="space-y-2 md:col-span-2">
+      <div>
+        <label class="block text-gray-500 text-sm ml-1">Delivery Address / Place*</label>
+        <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg  class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve"><g id="info"/><g id="icons"><path d="M12,0C7,0,3,4,3,9c0,6.2,3.4,11.7,8.5,14.9c0.3,0.2,0.7,0.2,1.1,0C17.6,20.6,21,15.2,21,9C21,4,17,0,12,0z M12,13   c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,11.2,14.2,13,12,13z" id="pin"/></g>
+                </svg>
+              </div>
+
+              <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter your Delivery Adress / place"
+                  class="w-full bg-[--white-faded] border border-gray-700/60 rounded-xl px-12 py-3 text-black focus:outline-none focus:border-black-500/40 focus:ring-1 focus:ring-gray-500/20 transition-all duration-200"
+                  />
+          </div>
+      </div>
+  </div>
+  <!--Terms & Conditions-->
+ <!--Submittng Order-->
+ <button 
+ class="bg-black text-center text-sm text-[--white-faded] w-full md:col-span-2 h-11  rounded-lg flex items-center justify-center cursor-pointer mt-2">
+ 
+  Submit Your Order
+ </button>
+  </div>
+        
+        
       </div>
 
   </div>
