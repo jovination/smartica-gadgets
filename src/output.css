@@ -890,6 +890,16 @@ video {
   border-top-right-radius: 4px;
 }
 
+.rounded-t-\[\] {
+  border-top-left-radius: ;
+  border-top-right-radius: ;
+}
+
+.rounded-t-\[40p\] {
+  border-top-left-radius: 40p;
+  border-top-right-radius: 40p;
+}
+
 .border {
   border-width: 1px;
 }
