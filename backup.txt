@@ -28,13 +28,12 @@
           at an Unbeatable Price!
         </p>
       </div>
-      <div class="relative w-full max-w-4xl mx-auto px-4 py-8">
-        <!-- Mobile view (slider) -->
-        <div class="md:hidden overflow-x-auto hide-scrollbar snap-x snap-mandatory">
+      <div class="relative w-full max-w-md mx-auto px-4 py-8">
+        <div class="overflow-x-auto hide-scrollbar snap-x snap-mandatory">
             <div class="flex w-full">
                 <div class="flex-shrink-0 w-full snap-center">
                     <div class="cursor-pointer flex flex-col gap-4 items-center">
-                        <div class="product-card p-2 radius-xl active bg-white shadow-lg">
+                        <div class="product-card p-2 rounded-xl bg-white shadow-lg">
                             <img width="200" src="/public/airpodspro.png" alt="Airpods Pro" class="mx-auto">
                         </div>
                         <p class="text-center text-md font-medium">
@@ -44,7 +43,7 @@
                 </div>
                 <div class="flex-shrink-0 w-full snap-center">
                     <div class="cursor-pointer flex flex-col gap-4 items-center">
-                        <div class="product-card p-2 radius-xl bg-white shadow-lg">
+                        <div class="product-card p-2 rounded-xl bg-white shadow-lg">
                             <img width="200" src="/public/airpodspro.png" alt="Airpods Pro 2" class="mx-auto">
                         </div>
                         <p class="text-center text-md font-medium">
@@ -55,32 +54,12 @@
             </div>
         </div>
 
-        <!-- Desktop view (original layout) -->
-        <div class="hidden md:flex items-center justify-around mt-8">
-            <div class="cursor-pointer flex flex-col gap-4">
-                <div class="product-card p-2 radius-xl active bg-white shadow-lg">
-                    <img width="200" src="/public/airpodspro.png" alt="Airpods Pro">
-                </div>
-                <p class="text-center text-md font-medium">
-                    Airpods Pro
-                </p>
-            </div>
-            <div class="cursor-pointer flex flex-col gap-4">
-                <div class="product-card p-2 radius-xl bg-white shadow-lg">
-                    <img width="200" src="/public/airpodspro.png" alt="Airpods Pro 2">
-                </div>
-                <p class="text-center text-md font-medium">
-                    Airpods Pro 2
-                </p>
-            </div>
-        </div>
-
-        <!-- Mobile indicators -->
-        <div class="md:hidden absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
             <div class="h-2 w-2 rounded-full bg-green-400"></div>
             <div class="h-2 w-2 rounded-full bg-gray-300"></div>
         </div>
     </div>
+
       <div class="flex justify-center mt-6">
         <div class="px-6 py-4 bg-[--gray-faded] rounded-2xl flex flex-col gap-1 w-[530px]">
         <span id="product-title" class="text-lg font-semibold">
@@ -310,15 +289,6 @@
 
     </section>
  </main>
- <style>
-  .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-  }
-  .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-  }
-</style>
  <script type="module">
   import AirpodsProductsData from '../data/AirpodsData.js';
   
@@ -455,17 +425,23 @@
             });
         }
 
-        if (slider) {
-            slider.addEventListener('scroll', () => {
-                const scrollPosition = slider.scrollLeft;
-                const slideWidth = slides[0].offsetWidth;
-                currentSlide = Math.round(scrollPosition / slideWidth);
-                updateIndicators();
-            });
-
+        slider.addEventListener('scroll', () => {
+            const scrollPosition = slider.scrollLeft;
+            const slideWidth = slides[0].offsetWidth;
+            currentSlide = Math.round(scrollPosition / slideWidth);
             updateIndicators();
-        }
-  </script>
+        });
 
+        updateIndicators();
+  </script>
+  <style>
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
 </body>
 </html>
