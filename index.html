@@ -23,7 +23,7 @@
      </div>   
      <div class="bg-white p-10 rounded-t-[40px] md:rounded-none">
                   <div>
-        <p class="font-semibold text-3xl ml-6">
+        <p class="font-semibold text-2xl ml-6">
           Experience Premium Sound  <br/>
           at an Unbeatable Price!
         </p>
@@ -318,6 +318,43 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
   }
+  /* Add smooth transitions */
+.product-card, .product-card img, button, input, .cursor-pointer {
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for product cards */
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for buttons */
+button:hover, .cursor-pointer:hover {
+  opacity: 0.8;
+}
+
+/* Smooth transition for modal */
+#orderModal {
+  transition: opacity 0.3s ease;
+}
+
+/* Add a subtle animation for the quantity change */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+#quantity, #modal-quantity {
+  animation: pulse 0.3s ease;
+}
+
+/* Improve focus states for accessibility */
+input:focus, button:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
 </style>
  <script type="module">
   import AirpodsProductsData from '../data/AirpodsData.js';
@@ -339,6 +376,7 @@
   
   let mainQuantity = 1;
   let modalQuantityValue = 1;
+  
   
   const getCleanPrice = (priceString) => {
     return parseInt(priceString.replace(/[,/=\s]/g, ""), 10);
