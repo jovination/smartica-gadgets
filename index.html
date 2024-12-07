@@ -32,9 +32,9 @@
         <!-- Mobile view (slider) -->
         <div class="md:hidden overflow-x-auto hide-scrollbar snap-x snap-mandatory">
             <div class="flex w-full">
-                <div class="flex-shrink-0 w-full snap-center">
+                <div class="flex-shrink-0 w-full h-auto snap-center">
                     <div class="cursor-pointer flex flex-col gap-4 items-center">
-                        <div class="product-card p-2 radius-xl active bg-white shadow-lg">
+                        <div class="product-card p-2 m-4 radius-xl active bg-white shadow-lg">
                             <img width="200" src="/public/airpodspro.png" alt="Airpods Pro" class="mx-auto">
                         </div>
                         <p class="text-center text-md font-medium">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="flex-shrink-0 w-full snap-center">
                     <div class="cursor-pointer flex flex-col gap-4 items-center">
-                        <div class="product-card p-2 radius-xl bg-white shadow-lg">
+                        <div class="product-card p-2 m-4 radius-xl bg-white shadow-lg">
                             <img width="200" src="/public/airpodspro.png" alt="Airpods Pro 2" class="mx-auto">
                         </div>
                         <p class="text-center text-md font-medium">
@@ -352,7 +352,7 @@ button:hover, .cursor-pointer:hover {
 
 /* Improve focus states for accessibility */
 input:focus, button:focus {
-  outline: 2px solid #000;
+  outline: 1px solid #000;
   outline-offset: 2px;
 }
 </style>
