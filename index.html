@@ -27,14 +27,14 @@
           Experience Premium Sound  <br/>
           at an Unbeatable Price!
         </p>
-        <div class="md:hidden flex justify-center ">
+        <a href="#product-item" class="md:hidden flex justify-center " id="scrollToProductItem">
           <svg class="w-20 h-12"
            xmlns="http://www.w3.org/2000/svg" class="bi bi-dash-lg" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"><path d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" fill-rule="evenodd"/></svg>
-        </div>
+        </a>
       </div>
       <div class="relative w-full max-w-4xl mx-auto px-4 py-8 mt-12">
         <!-- Mobile view (slider) -->
-        <div class="md:hidden overflow-x-auto hide-scrollbar snap-x snap-mandatory">
+        <div id="product-item" class="md:hidden overflow-x-auto hide-scrollbar snap-x snap-mandatory">
             <div class="flex w-full">
                 <div class="flex-shrink-0 w-full h-auto snap-center">
                     <div class="cursor-pointer flex flex-col gap-4 items-center">
@@ -507,6 +507,12 @@ input:focus, button:focus {
 
             updateIndicators();
         }
+
+document.getElementById('scrollToProductItem').addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent default anchor click behavior
+    const target = document.getElementById('product-item'); // Get the target element
+    target.scrollIntoView({ behavior: 'smooth' }); // Scroll to the target smoothly
+});
   </script>
 
 </body>
