@@ -866,6 +866,11 @@ video {
   border-radius: 0.75rem;
 }
 
+.rounded-t-\[40px\] {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1210,6 +1215,17 @@ video {
   opacity: 1;
 }
 
+@media (min-width: 640px) {
+  .sm\:rounded-none {
+    border-radius: 0px;
+  }
+
+  .sm\:rounded-t-\[40px\] {
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+  }
+}
+
 @media (min-width: 768px) {
   .md\:col-span-2 {
     grid-column: span 2 / span 2;
@@ -1225,6 +1241,15 @@ video {
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:rounded-none {
+    border-radius: 0px;
+  }
+
+  .md\:rounded-t-\[40px\] {
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
   }
 
   .md\:py-4 {
