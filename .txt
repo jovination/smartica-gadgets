@@ -1,0 +1,72 @@
+google sheet script link
+
+https://script.google.com/macros/s/AKfycbxm-Z6Oc7kfJMi8909cpLyTSrgtyl4Vgs7uOMmJTh_OZgFI1E3ePRsV1jehtWXyLZ77/exec
+
+
+//extension script
+
+const DATA_ENTRY_SHEET_NAME = "Sheet1";
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(DATA_ENTRY_SHEET_NAME);
+
+const doPost = (request = {}) => {
+  const { postData: { contents, type } = {} } = request;
+  var data = parseFormData(contents);
+  appendToGoogleSheet(data);
+  return ContentService.createTextOutput(contents).setMimeType(ContentService.MimeType.JSON);
+};
+
+function parseFormData(postData) {
+  var data = [];
+  var parameters = postData.split('&');
+  for (var i = 0; i < parameters.length; i++) {
+    var keyValue = parameters[i].split('=');
+    data[keyValue[0]] = decodeURIComponent(keyValue[1]);
+  }
+  return data;
+}
+
+function appendToGoogleSheet(data) {
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var rowData = headers.map(headerFld => data[headerFld]);
+  sheet.appendRow(rowData);
+}
+
+        const form = document.getElementById('registrationForm');
+        const submitButton = document.getElementById('submitButton');
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+           
+    
+            // Collect the form data
+            const formData = new FormData(form);
+            const keyValuePairs = [];
+            for (const pair of formData.entries()) {
+                keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
+            }
+            const formDataString = keyValuePairs.join("&");
+    
+            try {
+                const response = await fetch(
+                    'https://script.google.com/macros/s/AKfycbxm-Z6Oc7kfJMi8909cpLyTSrgtyl4Vgs7uOMmJTh_OZgFI1E3ePRsV1jehtWXyLZ77/exec',
+                    {
+                        method: 'POST',
+                        body: formDataString,
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+                        }
+                    }
+                );
+    
+                if (response.ok) {
+                    window.location.href = 'successful.html';
+                } else {
+                    throw new Error("Failed to submit the form: " + response.statusText);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred: " + error.message);
+            }
+                
+        });

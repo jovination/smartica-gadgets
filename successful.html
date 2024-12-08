@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="src/output.css" rel="stylesheet">
+    <title>Successful</title>
+</head>
+<body class="bg-[--white-faded]">
+    <main>
+        <section class="grid grid-cols-1 lg:grid-cols-2 h-screen">
+            <div class="hidden md:flex items-center justify-center">
+                <div class="bg-container p-8">
+                    <div>
+                        <p class="text-4xl text-white p-8 font-medium">
+                            Thank You  <br>
+                            for Your <br>
+                            Order!
+                        </p>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="bg-[white-faded] flex flex-col justify-center items-center gap-6 p-6 md:p-12">
+                <div class="flex justify-center mb-8">
+                    <div class="circle-container">
+                        <div class="outer-circle rounded-full pulse-animation"></div>
+                        <div class="middle-circle rounded-full"></div>
+                        <div class="inner-circle rounded-full flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white checkmark-animation" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                    <span class=" flex justify-center text-center text-2xl font-semibold fade-in" style="animation-delay: 0.2s"> Your Order Received <br>
+                        Successful
+                        </span>
+                        <div class="w-full h-auto p-8 bg-white rounded-3xl fade-in" style="animation-delay: 0.4s">
+                            <span class="text-base font-semibold">
+                            Order Summary
+                            </span>
+                            <ul class="flex flex-col gap-4 mt-5">
+                                <li class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                    <img width="22" src="public/check.svg" alt="check
+                                    icon">
+                                    <span class="text-[--gray] font-light">Airpods Pro</span>
+                                </div>
+                                <span class="font-medium">
+                                    Tsh  35,000
+                                </span>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                    <img width="22" src="public/check.svg" alt="check
+                                    icon">
+                                    <span class="text-[--gray] font-light">Quantity</span>
+                                </div>
+                                <span class="font-medium">
+                                    1
+                                </span>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                    <img width="22" src="public/check.svg" alt="check
+                                    icon">
+                                    <span class="text-[--gray] font-light">Payment status</span>
+                                </div>
+                                <span class="font-medium">
+                                    Paid on Delivery                                </span>
+                                </li>
+                                
+                                <div class="w-full h-[1px] bg-[--primary-green] ml-1"></div>
+                                <div class="flex items-center justify-between">
+                                    <span class="font-semibold">
+                                        Total
+                                    </span>
+                                    <span class="font-semibold text-[--primary-green]">
+                                        Tsh  35,000
+                                    </span>
+                                </div>
+                            </ul>
+
+                        </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <style>
+
+@keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+        }
+        
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        .checkmark-animation {
+            animation: checkmark 0.5s ease-in-out forwards;
+        }
+        .fade-in {
+            animation: fade-in 0.6s ease-out forwards;
+        }
+
+      .circle-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+        }
+        
+        .outer-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 190px;
+            height: 190px;
+            background-color: var(--tertiary-green);
+        }
+        
+        .middle-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 130px;
+            height: 130px;
+            background-color: var(--secondary-green);
+        }
+        
+        .inner-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-green);
+        }
+    </style>
+</body>
+</html>

@@ -1,7 +1,8 @@
 module.exports = {
   content: [
     './src/**/*.html', // If there are other files inside src
-    './index.html',    // Add your index.html location
+    './index.html',   
+    './successful.html',
   ],
   theme: {
     extend: {},
