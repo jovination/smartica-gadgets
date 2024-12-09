@@ -13,14 +13,12 @@
                 <div class="bg-container p-8">
                     <div>
                         <p class="text-4xl text-white p-8 font-medium">
-                            Thank You  <br>
+                            Thank You <br>
                             for Your <br>
                             Order!
                         </p>
                     </div>
-
                 </div>
-                
             </div>
             <div class="bg-[white-faded] flex flex-col justify-center items-center gap-6 p-6 md:p-12">
                 <div class="flex justify-center mb-8">
@@ -34,56 +32,39 @@
                         </div>
                     </div>
                 </div>
-                    <span class=" flex justify-center text-center text-2xl font-semibold fade-in" style="animation-delay: 0.2s"> Your Order Received <br>
-                        Successful
-                        </span>
-                        <div class="w-full h-auto p-8 bg-white rounded-3xl fade-in" style="animation-delay: 0.4s">
-                            <span class="text-base font-semibold">
-                            Order Summary
-                            </span>
-                            <ul class="flex flex-col gap-4 mt-5">
-                                <li class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                    <img width="22" src="public/check.svg" alt="check
-                                    icon">
-                                    <span class="text-[--gray] font-light">Airpods Pro</span>
-                                </div>
-                                <span class="font-medium">
-                                    Tsh  35,000
-                                </span>
-                                </li>
-                                <li class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                    <img width="22" src="public/check.svg" alt="check
-                                    icon">
-                                    <span class="text-[--gray] font-light">Quantity</span>
-                                </div>
-                                <span class="font-medium">
-                                    1
-                                </span>
-                                </li>
-                                <li class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                    <img width="22" src="public/check.svg" alt="check
-                                    icon">
-                                    <span class="text-[--gray] font-light">Payment status</span>
-                                </div>
-                                <span class="font-medium">
-                                    Paid on Delivery                                </span>
-                                </li>
-                                
-                                <div class="w-full h-[1px] bg-[--primary-green] ml-1"></div>
-                                <div class="flex items-center justify-between">
-                                    <span class="font-semibold">
-                                        Total
-                                    </span>
-                                    <span class="font-semibold text-[--primary-green]">
-                                        Tsh  35,000
-                                    </span>
-                                </div>
-                            </ul>
-
+                <span class="flex justify-center text-center text-2xl font-semibold fade-in" style="animation-delay: 0.2s">
+                    Your Order Received <br> Successfully
+                </span>
+                <div class="w-full h-auto p-8 bg-white rounded-3xl fade-in" style="animation-delay: 0.4s">
+                    <span class="text-base font-semibold">Order Summary</span>
+                    <ul class="flex flex-col gap-4 mt-5">
+                        <li class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img width="22" src="public/check.svg" alt="check icon">
+                                <span id="product-name" class="text-[--gray] font-light"></span>
+                            </div>
+                            <span id="product-unit-price" class="font-medium"></span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img width="22" src="public/check.svg" alt="check icon">
+                                <span class="text-[--gray] font-light">Quantity</span>
+                            </div>
+                            <span id="product-quantity" class="font-medium"></span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img width="22" src="public/check.svg" alt="check icon">
+                                <span class="text-[--gray] font-light">Payment status</span>
+                            </div>
+                            <span class="font-medium">Paid on Delivery</span>
+                        </li>
+                        <div class="w-full h-[1px] bg-[--primary-green] ml-1"></div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold">Total</span>
+                            <span id="modalProductPrice" class="font-semibold text-[--primary-green]"></span>
                         </div>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -154,5 +135,6 @@
             background-color: var(--primary-green);
         }
     </style>
+        <script src="script.js"></script>
 </body>
 </html>

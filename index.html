@@ -760,6 +760,8 @@ modalDecreaseQuantity.addEventListener("click", () => {
 document.addEventListener('DOMContentLoaded', () => {
   ResponsiveProductSlider.initializeAll();
 });
+
+
 const submitButton = document.getElementById("submitButton");
 const form = document.getElementById("orderingForm");
 const loader = document.getElementById("loader"); // Reference to the loader
@@ -769,6 +771,15 @@ form.addEventListener("submit", async (e) => {
     
     // Show the loader
     loader.classList.remove("hidden");
+  // Ensure hidden inputs are updated before submission
+    updateHiddenInputs();
+     // Capture form data
+     const product = document.getElementById("hidden-product").value;
+     const quantity = document.getElementById("hidden-orders").value;
+
+    // Save data to localStorage
+    localStorage.setItem("orderProduct", product);
+    localStorage.setItem("orderQuantity", quantity);
 
     // Collect the form data
     const formData = new FormData(form);
