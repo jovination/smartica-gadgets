@@ -136,9 +136,10 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
               <img width="28" src="/public/airpodsvg.svg" alt="">
-               <span id="modal-product-detail" class="text-sm text-black">
-                <input type="hidden" name="Product" id="hidden-product" value="Airpods Pro">
+               <span id="modal-product-detail" class="text-sm text-black" name="Product">
                </span>
+               <input type="hidden" name="Product" id="hidden-product" value="">
+
             </div> 
             <span class="text-sm font-medium underline underline-offset-1">
               Change Options
@@ -153,7 +154,7 @@
                 <div id="modal-decrease-quantity" class="cursor-pointer">
                   <?xml version="1.0" ?><svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><polygon fill-rule="evenodd" points="2 9 2 7 14 7 14 9"/></svg>                
                 </div>
-                <span id="modal-quantity" class="text-sm font-semibold w-1" name="Orders">1</span> 
+                <span id="modal-quantity" class="text-sm font-semibold w-1" name="Orders"></span> 
                 <input type="hidden" name="Orders" id="hidden-orders" value="">
                 <div id="modal-increase-quantity" class="inline-block w-[20px] bg-black rounded-full  cursor-pointer ml-2 p-1">
                   <svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13 11h9v2h-9v9h-2v-9H2v-2h9V2h2z" fill="#fffafa" class="fill-000000"></path></svg>                </div>
@@ -165,14 +166,12 @@
              Products
             </span>
             <div class="text-sm font-semibold">
-              <span>Tsh </span><span id="modal-product-price" class="text-sm font-semibold">
-                <input type="hidden" name="Price" id="hidden-price" value="">
+              <span>Tsh </span><span id="modal-product-price" class="text-sm font-semibold" name="Price">
               </span> 
+              <input type="hidden" name="Price" id="hidden-price" value="">
+
             </div>
           </div>
-          
-          
-
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
         <!-- Name -->
@@ -468,49 +467,83 @@ input:focus, button:focus {
   });
   
   openModal.addEventListener("click", () => {
-    orderModal.classList.remove("hidden");
-  
-    const activeIndex = Array.from(productCards).findIndex((card) =>
-        card.classList.contains("active")
-    );
-    const activeProduct = AirpodsProductsData[activeIndex];
-  
-    modalQuantityValue = mainQuantity;
-    modalProductDetail.textContent = activeProduct.name;
-    modalQuantity.textContent = modalQuantityValue;
-    const cleanPrice = getCleanPrice(activeProduct.price);
-    modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
+  orderModal.classList.remove("hidden");
 
-    // Update hidden inputs
-    document.getElementById("hidden-product").value = activeProduct.name;
-    document.getElementById("hidden-orders").value = modalQuantityValue;
-    document.getElementById("hidden-price").value = cleanPrice * modalQuantityValue;
-  });
-  
-  modalIncreaseQuantity.addEventListener("click", () => {
-    modalQuantityValue++;
+  // Find the active product
+  const activeIndex = Array.from(productCards).findIndex((card) =>
+    card.classList.contains("active")
+  );
+  const activeProduct = AirpodsProductsData[activeIndex];
+
+  // Set initial modal values
+  modalQuantityValue = mainQuantity;
+  modalProductDetail.textContent = activeProduct.name;
+  modalQuantity.textContent = modalQuantityValue;
+
+  // Calculate and set price
+  const cleanPrice = getCleanPrice(activeProduct.price);
+  modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
+
+  // Update hidden inputs
+  updateHiddenInputs();
+});
+
+const updateHiddenInputs = () => {
+  // Get current modal values
+  const productName = document.getElementById("modal-product-detail").textContent.trim();
+  const productOrders = document.getElementById("modal-quantity").textContent.trim();
+  const productPrice = document
+    .getElementById("modal-product-price")
+    .textContent.trim()
+    .replace("Tsh ", "")
+    .replace(/,/g, ""); // Clean price format
+
+  // Update hidden input fields
+  document.getElementById("hidden-product").value = productName;
+  document.getElementById("hidden-orders").value = productOrders;
+  document.getElementById("hidden-price").value = productPrice;
+};
+
+// Increase quantity button event listener
+modalIncreaseQuantity.addEventListener("click", () => {
+  modalQuantityValue++; // Increment quantity
+
+  // Find the active product
+  const activeIndex = Array.from(productCards).findIndex((card) =>
+    card.classList.contains("active")
+  );
+  const activeProduct = AirpodsProductsData[activeIndex];
+
+  // Update quantity and price
+  const cleanPrice = getCleanPrice(activeProduct.price);
+  modalQuantity.textContent = modalQuantityValue;
+  modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
+
+  // Update hidden inputs
+  updateHiddenInputs();
+});
+
+// Decrease quantity button event listener
+modalDecreaseQuantity.addEventListener("click", () => {
+  if (modalQuantityValue > 1) {
+    modalQuantityValue--; // Decrement quantity
+
+    // Find the active product
     const activeIndex = Array.from(productCards).findIndex((card) =>
       card.classList.contains("active")
     );
     const activeProduct = AirpodsProductsData[activeIndex];
+
+    // Update quantity and price
     const cleanPrice = getCleanPrice(activeProduct.price);
     modalQuantity.textContent = modalQuantityValue;
     modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
-  });
-  
-  modalDecreaseQuantity.addEventListener("click", () => {
-    if (modalQuantityValue > 1) {
-      modalQuantityValue--;
-      const activeIndex = Array.from(productCards).findIndex((card) =>
-        card.classList.contains("active")
-      );
-      const activeProduct = AirpodsProductsData[activeIndex];
-      const cleanPrice = getCleanPrice(activeProduct.price);
-      modalQuantity.textContent = modalQuantityValue;
-      modalProductPrice.textContent = `Tsh ${cleanPrice * modalQuantityValue}`;
-    }
-  });
-  
+
+    // Update hidden inputs
+    updateHiddenInputs();
+  }
+});
+
   closeModal.addEventListener('click', () => {
     orderModal.classList.add('hidden');
   });
