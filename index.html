@@ -32,59 +32,60 @@
           <svg class="w-20 h-12"
            xmlns="http://www.w3.org/2000/svg" class="bi bi-dash-lg" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"><path d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" fill-rule="evenodd"/></svg>
         </a>
+
       </div>
       <div class="relative w-full max-w-4xl mx-auto px-4 py-8 mt-12">
-        <!-- Mobile view (slider) -->
-        <div id="product-item" class="md:hidden overflow-x-auto hide-scrollbar snap-x snap-mandatory">
-            <div class="flex w-full">
-                <div class="flex-shrink-0 w-full h-auto snap-center">
-                    <div class="cursor-pointer flex flex-col gap-4 items-center">
-                        <div class="product-card p-2 m-4 radius-xl active bg-white shadow-lg">
-                            <img width="200" src="/public/airpodspro.png" alt="Airpods Pro" class="mx-auto">
-                        </div>
-                        <p class="text-center text-md font-medium">
-                            Airpods Pro
-                        </p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0 w-full snap-center">
-                    <div class="cursor-pointer flex flex-col gap-4 items-center">
-                        <div class="product-card p-2 m-4 radius-xl bg-white shadow-lg">
-                            <img width="200" src="/public/airpodspro.png" alt="Airpods Pro 2" class="mx-auto">
-                        </div>
-                        <p class="text-center text-md font-medium">
-                            Airpods Pro 2
-                        </p>
-                    </div>
-                </div>
+        <div 
+        id="product-item" 
+        data-responsive-slider
+        class="flex items-center justify-center mt-8 
+               overflow-x-auto hide-scrollbar 
+               snap-x snap-mandatory 
+               md:overflow-visible"
+      >
+        <div 
+          data-product-wrapper
+          class="flex gap-4 
+                 md:grid md:grid-cols-2 
+                 md:gap-8 
+                 md:justify-center 
+                 md:items-center"
+        >
+          <!-- Product 1 -->
+          <div data-product-item>
+            <div class="product-card p-2 m-4 radius-xl bg-white shadow-lg">
+              <img
+                width="200"
+                src="/public/airpodspro.png"
+                alt="Airpods Pro"
+                class="mx-auto"
+              />
             </div>
-        </div>
-
-        <!-- Desktop view (original layout) -->
-        <div class="hidden md:flex items-center justify-around mt-8">
-            <div class="cursor-pointer flex flex-col gap-4">
-                <div class="product-card p-2 radius-xl active bg-white shadow-lg">
-                    <img width="200" src="/public/airpodspro.png" alt="Airpods Pro">
-                </div>
-                <p class="text-center text-md font-medium">
-                    Airpods Pro
-                </p>
+            <p class="text-center text-md font-medium">
+              Airpods Pro
+            </p>
+          </div>
+      
+          <!-- Product 2 -->
+          <div data-product-item>
+            <div class="product-card p-2 m-4 radius-xl bg-white shadow-lg">
+              <img
+                width="200"
+                src="/public/airpodspro.png"
+                alt="Airpods Pro 2"
+                class="mx-auto"
+              />
             </div>
-            <div class="cursor-pointer flex flex-col gap-4">
-                <div class="product-card p-2 radius-xl bg-white shadow-lg">
-                    <img width="200" src="/public/airpodspro.png" alt="Airpods Pro 2">
-                </div>
-                <p class="text-center text-md font-medium">
-                    Airpods Pro 2
-                </p>
-            </div>
+            <p class="text-center text-md font-medium">
+              Airpods Pro 2
+            </p>
+          </div>
         </div>
-
-        <!-- Mobile indicators -->
-        <div class="md:hidden absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            <div class="h-2 w-2 rounded-full bg-green-400"></div>
-            <div class="h-2 w-2 rounded-full bg-gray-300"></div>
-        </div>
+      </div>
+        
+      <div class="md:hidden absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <!-- Indicator dots will be here or dynamically created -->
+      </div>
     </div>
       <div class="flex justify-center mt-6">
         <div class="p-6 bg-[--gray-faded] rounded-3xl flex flex-col gap-1 w-[530px]">
@@ -324,6 +325,19 @@
     </section>
  </main>
  <style>
+  .hide-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .snap-x {
+        scroll-snap-type: x mandatory;
+    }
+    .snap-center {
+        scroll-snap-align: center;
+    }
   .hide-scrollbar::-webkit-scrollbar {
       display: none;
   }
@@ -383,7 +397,7 @@ input:focus, button:focus {
     100% { transform: rotate(360deg); }
 }
 </style>
- <script type="module">
+<script type="module">
   import AirpodsProductsData from '../data/AirpodsData.js';
   
   const productTitle = document.querySelector("#product-title");
@@ -409,7 +423,7 @@ input:focus, button:focus {
     return parseInt(priceString.replace(/[,/=\s]/g, ""), 10);
   };
   
-  const updateProductDetails = (index) => {
+    const updateProductDetails = (index) => {
     const product = AirpodsProductsData[index];
     productTitle.textContent = product.name;
     productFeatures.innerHTML = product.features.map((f) => `${f}<br>`).join("");
@@ -508,40 +522,244 @@ input:focus, button:focus {
       orderModal.classList.add('hidden');
     }
   });
-  const slider = document.querySelector('.overflow-x-auto');
-        const slides = document.querySelectorAll('.snap-center');
-        const indicators = document.querySelectorAll('.absolute.bottom-2 > div');
-        let currentSlide = 0;
+  
+  class ResponsiveProductSlider {
+  constructor(containerId) {
+    // Core elements
+    this.container = document.getElementById(containerId);
+    this.productWrapper = this.container.querySelector('[data-product-wrapper]');
+    this.products = Array.from(this.container.querySelectorAll('[data-product-item]'));
+    
+    // Indicator elements
+    this.indicators = this.createMobileIndicators();
+    
+    // State management
+    this.currentIndex = 0;
+    this.isMobile = window.innerWidth < 768;
+    this.isScrolling = false;
+    
+    // Initialize
+    this.setupInitialClasses();
+    this.setupEventListeners();
+    this.setupResponsiveObserver();
+    this.updateIndicators();
+  }
 
-        function updateIndicators() {
-            indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
-                    indicator.classList.remove('bg-gray-300');
-                    indicator.classList.add('bg-green-400');
-                } else {
-                    indicator.classList.remove('bg-green-400');
-                    indicator.classList.add('bg-gray-300');
-                }
-            });
+  createMobileIndicators() {
+    // Create mobile indicators if they don't exist
+    let indicatorsContainer = this.container.querySelector('.mobile-indicators');
+    if (!indicatorsContainer) {
+      indicatorsContainer = document.createElement('div');
+      indicatorsContainer.className = 'md:hidden absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 mobile-indicators';
+      
+      // Create indicator dots
+      this.products.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.className = 'h-2 w-2 rounded-full cursor-pointer ' + 
+          (index === 0 ? 'bg-green-400' : 'bg-gray-300');
+        indicator.setAttribute('data-slide', index);
+        indicatorsContainer.appendChild(indicator);
+      });
+      
+      this.container.appendChild(indicatorsContainer);
+    }
+    return indicatorsContainer.querySelectorAll('div');
+  }
+
+  setupInitialClasses() {
+    // Common classes for all products
+    this.products.forEach((product, index) => {
+      product.classList.add(
+        'cursor-pointer', 
+        'flex', 
+        'flex-col', 
+        'gap-4', 
+        'items-center'
+      );
+      // Set data attribute for slide index
+      product.setAttribute('data-slide', index);
+    });
+    // Responsive classes
+    this.updateProductClasses();
+  }
+
+  setupEventListeners() {
+    // Touch interaction
+    let touchStartX = 0;
+    let touchEndX = 0;
+    this.container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    this.container.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      this.handleSwipe(touchStartX, touchEndX);
+    });
+
+    // Precise scroll tracking for indicators
+    this.productWrapper.addEventListener('scroll', this.debounce(() => {
+      if (!this.isMobile) return;
+      
+      // Calculate the closest slide based on scroll position
+      const scrollPosition = this.productWrapper.scrollLeft;
+      const slideWidth = this.products[0].offsetWidth;
+      
+      // Use Math.round to find the nearest slide
+      this.currentIndex = Math.round(scrollPosition / slideWidth);
+      
+      // Ensure we don't exceed array bounds
+      this.currentIndex = Math.min(
+        Math.max(0, this.currentIndex), 
+        this.products.length - 1
+      );
+      
+      this.updateIndicators();
+    }, 50));
+
+    // Indicator click handling
+    if (this.indicators) {
+      this.indicators.forEach(indicator => {
+        indicator.addEventListener('click', (e) => {
+          if (!this.isMobile) return;
+          
+          const slideIndex = parseInt(e.target.getAttribute('data-slide'), 10);
+          this.navigateToSlide(slideIndex);
+        });
+      });
+    }
+
+    // Keyboard navigation (mobile only)
+    document.addEventListener('keydown', (e) => {
+      if (!this.isMobile) return;
+      if (e.key === 'ArrowLeft') this.navigateProducts('prev');
+      if (e.key === 'ArrowRight') this.navigateProducts('next');
+    });
+  }
+
+  // Debounce utility to prevent excessive calls
+  debounce(func, delay) {
+    let timeoutId;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(context, args);
+      }, delay);
+    };
+  }
+
+  updateIndicators() {
+    if (!this.isMobile || !this.indicators) return;
+    
+    this.indicators.forEach((indicator, index) => {
+      if (index === this.currentIndex) {
+        indicator.classList.remove('bg-gray-300');
+        indicator.classList.add('bg-green-400');
+      } else {
+        indicator.classList.remove('bg-green-400');
+        indicator.classList.add('bg-gray-300');
+      }
+    });
+  }
+
+  navigateToSlide(slideIndex) {
+    if (!this.isMobile) return;
+    
+    // Ensure slide index is within bounds
+    this.currentIndex = Math.min(
+      Math.max(0, slideIndex), 
+      this.products.length - 1
+    );
+    
+    // Scroll to the specific slide
+    this.products[this.currentIndex].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+    
+    // Update indicators
+    this.updateIndicators();
+  }
+
+  handleSwipe(startX, endX) {
+    if (!this.isMobile) return;
+    const swipeThreshold = 50;
+    const swipeDistance = endX - startX;
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      this.navigateProducts(swipeDistance < 0 ? 'next' : 'prev');
+    }
+  }
+
+  navigateProducts(direction) {
+    if (!this.isMobile) return;
+    this.currentIndex = direction === 'next'
+      ? Math.min(this.currentIndex + 1, this.products.length - 1)
+      : Math.max(this.currentIndex - 1, 0);
+    
+    this.products[this.currentIndex].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+    
+    this.updateIndicators();
+  }
+
+  updateProductClasses() {
+    this.products.forEach(product => {
+      if (this.isMobile) {
+        // Mobile-specific classes
+        product.classList.remove('md:flex-none', 'md:w-auto', 'md:max-w-[200px]');
+        product.classList.add('flex-shrink-0', 'w-full', 'h-auto', 'snap-center');
+      } else {
+        // Desktop-specific classes
+        product.classList.remove('flex-shrink-0', 'w-full', 'h-auto', 'snap-center');
+        product.classList.add('flex-shrink-0', 'w-[90%]', 'snap-center', 'md:flex-none', 'md:w-auto', 'md:max-w-[200px]');
+        
+        // Hide mobile indicators on desktop
+        if (this.indicators && this.indicators[0]) {
+          this.indicators[0].closest('.mobile-indicators').style.display = 'none';
         }
+      }
+    });
+  }
 
-        if (slider) {
-            slider.addEventListener('scroll', () => {
-                const scrollPosition = slider.scrollLeft;
-                const slideWidth = slides[0].offsetWidth;
-                currentSlide = Math.round(scrollPosition / slideWidth);
-                updateIndicators();
-            });
-
-            updateIndicators();
+  setupResponsiveObserver() {
+    // Debounced resize listener
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const currentMobileState = window.innerWidth < 768;
+        
+        // Update only if mobile state has changed
+        if (this.isMobile !== currentMobileState) {
+          this.isMobile = currentMobileState;
+          this.updateProductClasses();
+          
+          // Show/hide mobile indicators based on screen size
+          if (this.indicators && this.indicators[0]) {
+            const indicatorsContainer = this.indicators[0].closest('.mobile-indicators');
+            indicatorsContainer.style.display = this.isMobile ? 'flex' : 'none';
+          }
         }
+      }, 250);
+    });
+  }
 
-document.getElementById('scrollToProductItem').addEventListener('click', (event) => {
-    event.preventDefault(); 
-    const target = document.getElementById('product-item'); 
-    target.scrollIntoView({ behavior: 'smooth' }); 
+  // Static method to initialize all sliders
+  static initializeAll() {
+    document.querySelectorAll('[data-responsive-slider]').forEach(container => {
+      new ResponsiveProductSlider(container.id);
+    });
+  }
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+  ResponsiveProductSlider.initializeAll();
 });
-
 const submitButton = document.getElementById("submitButton");
 const form = document.getElementById("orderingForm");
 const loader = document.getElementById("loader"); // Reference to the loader
