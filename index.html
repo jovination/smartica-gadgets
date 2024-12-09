@@ -34,7 +34,7 @@
         </a>
 
       </div>
-      <div class="relative w-full max-w-4xl mx-auto px-4 py-8 mt-12">
+      <div class="relative w-full max-w-4xl mx-auto px-4 py-8 mt-12 md:mt-4 ">
         <div 
         id="product-item" 
         data-responsive-slider
@@ -83,9 +83,7 @@
         </div>
       </div>
         
-      <div class="md:hidden absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        <!-- Indicator dots will be here or dynamically created -->
-      </div>
+      
     </div>
       <div class="flex justify-center mt-6">
         <div class="p-6 bg-[--gray-faded] rounded-3xl flex flex-col gap-1 w-[530px]">
@@ -522,6 +520,11 @@ input:focus, button:focus {
       orderModal.classList.add('hidden');
     }
   });
+  document.getElementById('scrollToProductItem').addEventListener('click', (event) => {
+    event.preventDefault(); 
+    const target = document.getElementById('product-item'); 
+    target.scrollIntoView({ behavior: 'smooth' }); 
+});
   
   class ResponsiveProductSlider {
   constructor(containerId) {
@@ -536,7 +539,6 @@ input:focus, button:focus {
     // State management
     this.currentIndex = 0;
     this.isMobile = window.innerWidth < 768;
-    this.isScrolling = false;
     
     // Initialize
     this.setupInitialClasses();
@@ -555,9 +557,8 @@ input:focus, button:focus {
       // Create indicator dots
       this.products.forEach((_, index) => {
         const indicator = document.createElement('div');
-        indicator.className = 'h-2 w-2 rounded-full cursor-pointer ' + 
+        indicator.className = 'h-2 w-2 rounded-full ' + 
           (index === 0 ? 'bg-green-400' : 'bg-gray-300');
-        indicator.setAttribute('data-slide', index);
         indicatorsContainer.appendChild(indicator);
       });
       
@@ -568,7 +569,7 @@ input:focus, button:focus {
 
   setupInitialClasses() {
     // Common classes for all products
-    this.products.forEach((product, index) => {
+    this.products.forEach(product => {
       product.classList.add(
         'cursor-pointer', 
         'flex', 
@@ -576,8 +577,6 @@ input:focus, button:focus {
         'gap-4', 
         'items-center'
       );
-      // Set data attribute for slide index
-      product.setAttribute('data-slide', index);
     });
     // Responsive classes
     this.updateProductClasses();
@@ -615,18 +614,6 @@ input:focus, button:focus {
       this.updateIndicators();
     }, 50));
 
-    // Indicator click handling
-    if (this.indicators) {
-      this.indicators.forEach(indicator => {
-        indicator.addEventListener('click', (e) => {
-          if (!this.isMobile) return;
-          
-          const slideIndex = parseInt(e.target.getAttribute('data-slide'), 10);
-          this.navigateToSlide(slideIndex);
-        });
-      });
-    }
-
     // Keyboard navigation (mobile only)
     document.addEventListener('keydown', (e) => {
       if (!this.isMobile) return;
@@ -660,26 +647,6 @@ input:focus, button:focus {
         indicator.classList.add('bg-gray-300');
       }
     });
-  }
-
-  navigateToSlide(slideIndex) {
-    if (!this.isMobile) return;
-    
-    // Ensure slide index is within bounds
-    this.currentIndex = Math.min(
-      Math.max(0, slideIndex), 
-      this.products.length - 1
-    );
-    
-    // Scroll to the specific slide
-    this.products[this.currentIndex].scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center'
-    });
-    
-    // Update indicators
-    this.updateIndicators();
   }
 
   handleSwipe(startX, endX) {
