@@ -819,59 +819,219 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-const submitButton = document.getElementById("submitButton");
-const form = document.getElementById("orderingForm");
-const loader = document.getElementById("loader"); // Reference to the loader
-
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    // Show the loader
-    loader.classList.remove("hidden");
-  // Ensure hidden inputs are updated before submission
-    updateHiddenInputs();
-     // Capture form data
-     const product = document.getElementById("hidden-product").value;
-     const quantity = document.getElementById("hidden-orders").value;
-     
-
-    // Save data to localStorage
-    localStorage.setItem("orderProduct", product);
-    localStorage.setItem("orderQuantity", quantity);
-
-    // Collect the form data
-    const formData = new FormData(form);
-    const keyValuePairs = [];
-    for (const pair of formData.entries()) {
-        keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
-    }
-    const formDataString = keyValuePairs.join("&");
-
-    try {
-        const response = await fetch(
-            'https://script.google.com/macros/s/AKfycbxm-Z6Oc7kfJMi8909cpLyTSrgtyl4Vgs7uOMmJTh_OZgFI1E3ePRsV1jehtWXyLZ77/exec',
-            {
-                method: 'POST',
-                body: formDataString,
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-                }
-            }
-        );
-
-        if (response.ok) {
-            window.location.href = 'successful.html';
-        } else {
-            throw new Error("Failed to submit the form: " + response.statusText);
+// Form Validation Module
+const FormValidator = {
+    // Validation rules
+    rules: {
+        CustomerName: {
+            required: true,
+            minLength: 2,
+            maxLength: 50,
+            errorMessage: 'Please enter a valid full name'
+        },
+        PhoneNumber: {
+            required: true,
+            pattern: /^(\+?255|0)?[67]\d{8}$/,
+            errorMessage: 'Please enter a valid Tanzanian phone number'
+        },
+        Email: {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            errorMessage: 'Please enter a valid email address'
+        },
+        Address: {
+            required: true,
+            minLength: 5,
+            maxLength: 200,
+            errorMessage: 'Please enter a valid delivery address'
         }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred: " + error.message);
-    } finally {
-        // Hide the loader after the submission is complete
-        loader.classList.add("hidden");
+    },
+
+    // Validate individual input
+    validateInput(input) {
+        const rule = this.rules[input.name];
+        if (!rule) return true;
+
+        const value = input.value.trim();
+        const errorContainer = this.getErrorContainer(input);
+
+        // Clear previous errors
+        this.clearError(input);
+
+        // Check if required and empty
+        if (rule.required && value === '') {
+            this.showError(input, rule.errorMessage);
+            return false;
+        }
+
+        // Check min length
+        if (rule.minLength && value.length < rule.minLength) {
+            this.showError(input, rule.errorMessage);
+            return false;
+        }
+
+        // Check max length
+        if (rule.maxLength && value.length > rule.maxLength) {
+            this.showError(input, rule.errorMessage);
+            return false;
+        }
+
+        // Check pattern
+        if (rule.pattern && !rule.pattern.test(value)) {
+            this.showError(input, rule.errorMessage);
+            return false;
+        }
+
+        return true;
+    },
+
+    // Create error container if it doesn't exist
+    getErrorContainer(input) {
+        let errorContainer = input.nextElementSibling;
+        if (!errorContainer || !errorContainer.classList.contains('error-message')) {
+            errorContainer = document.createElement('div');
+            errorContainer.className = 'error-message text-red-500 text-xs mt-1';
+            input.parentNode.insertBefore(errorContainer, input.nextSibling);
+        }
+        return errorContainer;
+    },
+
+    // Show error message
+    showError(input, message) {
+        const errorContainer = this.getErrorContainer(input);
+        errorContainer.textContent = message;
+        input.classList.add('border-red-500', 'ring-red-500');
+        input.classList.remove('border-gray-700/60');
+    },
+
+    // Clear error message
+    clearError(input) {
+        const errorContainer = input.nextElementSibling;
+        if (errorContainer && errorContainer.classList.contains('error-message')) {
+            errorContainer.textContent = '';
+        }
+        input.classList.remove('border-red-500', 'ring-red-500');
+        input.classList.add('border-gray-700/60');
+    },
+
+    // Validate entire form
+    validateForm(form) {
+        const inputs = form.querySelectorAll('input[name="CustomerName"], input[name="PhoneNumber"], input[name="Email"], input[name="Address"]');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!this.validateInput(input)) {
+                isValid = false;
+            }
+        });
+
+        // Check Terms & Conditions checkbox
+        const termsCheckbox = form.querySelector('#checkbox-black');
+        if (!termsCheckbox.checked) {
+            this.showTermsError(termsCheckbox);
+            isValid = false;
+        }
+
+        return isValid;
+    },
+
+    // Show terms error
+    showTermsError(checkbox) {
+        // Remove any existing error
+        const existingError = checkbox.closest('.flex').querySelector('.terms-error');
+        if (existingError) existingError.remove();
+
+        // Create error message
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'terms-error text-red-500 text-xs ml-2 mt-1';
+        errorMessage.textContent = 'You must agree to the Terms and Conditions';
+
+        checkbox.closest('.flex').appendChild(errorMessage);
+    },
+
+    // Initialize validation
+    init(form) {
+        // Real-time validation on input
+        form.querySelectorAll('input[name="CustomerName"], input[name="PhoneNumber"], input[name="Email"], input[name="Address"]')
+            .forEach(input => {
+                input.addEventListener('input', () => this.validateInput(input));
+                input.addEventListener('blur', () => this.validateInput(input));
+            });
+
+        // Terms checkbox validation
+        const termsCheckbox = form.querySelector('#checkbox-black');
+        termsCheckbox.addEventListener('change', () => {
+            const existingError = termsCheckbox.closest('.flex').querySelector('.terms-error');
+            if (existingError) existingError.remove();
+        });
     }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('orderingForm');
+    const submitButton = document.getElementById("submitButton");
+    const loader = document.getElementById("loader");
+
+    // Initialize FormValidator
+    FormValidator.init(form);
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Perform form validation
+        if (!FormValidator.validateForm(form)) {
+            return; // Stop submission if validation fails
+        }
+
+        // Show the loader
+        loader.classList.remove("hidden");
+
+        // Ensure hidden inputs are updated before submission
+        updateHiddenInputs();
+
+        // Capture form data
+        const product = document.getElementById("hidden-product").value;
+        const quantity = document.getElementById("hidden-orders").value;
+
+        // Save data to localStorage
+        localStorage.setItem("orderProduct", product);
+        localStorage.setItem("orderQuantity", quantity);
+
+        // Collect the form data
+        const formData = new FormData(form);
+        const keyValuePairs = [];
+        for (const pair of formData.entries()) {
+            keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
+        }
+        const formDataString = keyValuePairs.join("&");
+
+        try {
+            const response = await fetch(
+                'https://script.google.com/macros/s/AKfycbxm-Z6Oc7kfJMi8909cpLyTSrgtyl4Vgs7uOMmJTh_OZgFI1E3ePRsV1jehtWXyLZ77/exec',
+                {
+                    method: 'POST',
+                    body: formDataString,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+                    }
+                }
+            );
+
+            if (response.ok) {
+                window.location.href = 'successful.html';
+            } else {
+                throw new Error("Failed to submit the form: " + response.statusText);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred: " + error.message);
+        } finally {
+            // Hide the loader after the submission is complete
+            loader.classList.add("hidden");
+        }
+    });
 });
+
   </script>
 
 </body>
