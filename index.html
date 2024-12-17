@@ -967,6 +967,15 @@ const FormValidator = {
     }
 };
 
+function clearForm(form) {
+    // Clear all input fields
+    const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="hidden"]');
+    inputs.forEach(input => {
+        input.value = '';
+        FormValidator.clearError(input); // Clear validation errors if any
+    });
+  }
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('orderingForm');
     const submitButton = document.getElementById("submitButton");
@@ -1018,8 +1027,10 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (response.ok) {
-                window.location.href = 'successful.html';
-            } else {
+              clearForm(form);
+              window.location.href = 'successful.html';
+            } 
+            else {
                 throw new Error("Failed to submit the form: " + response.statusText);
             }
         } catch (error) {

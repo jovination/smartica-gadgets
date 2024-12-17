@@ -656,6 +656,10 @@ video {
   top: 50%;
 }
 
+.start-0 {
+  inset-inline-start: 0px;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -730,6 +734,18 @@ video {
   margin-top: 2rem;
 }
 
+.ml-0 {
+  margin-left: 0px;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -778,6 +794,10 @@ video {
   height: 1.25rem;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .h-\[1px\] {
   height: 1px;
 }
@@ -788,6 +808,14 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .w-1 {
@@ -814,6 +842,10 @@ video {
   width: 1.25rem;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
 .w-\[20px\] {
   width: 20px;
 }
@@ -836,6 +868,14 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-4 {
+  width: 1rem;
+}
+
+.w-8 {
+  width: 2rem;
 }
 
 .max-w-4xl {
@@ -947,6 +987,10 @@ video {
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
+.self-start {
+  align-self: flex-start;
+}
+
 .overflow-x-auto {
   overflow-x: auto;
 }
@@ -969,6 +1013,10 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .rounded-t-\[40px\] {
@@ -1028,6 +1076,38 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\] {
+  background-color: ;
+}
+
+.bg-\[--prim\] {
+  background-color: var(--prim);
+}
+
+.bg-\[--secondary\] {
+  background-color: var(--secondary);
+}
+
+.bg-\[--secondary-green\] {
+  background-color: var(--secondary-green);
+}
+
+.bg-\[--ry-green\] {
+  background-color: var(--ry-green);
+}
+
+.bg-\[--tery-green\] {
+  background-color: var(--tery-green);
+}
+
+.bg-\[--tetiary-green\] {
+  background-color: var(--tetiary-green);
+}
+
+.bg-\[--tertiary-green\] {
+  background-color: var(--tertiary-green);
 }
 
 .bg-opacity-50 {
@@ -1249,6 +1329,12 @@ video {
   transition-duration: 150ms;
 }
 
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .transition-opacity {
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1362,6 +1448,11 @@ video {
 .focus-within\:text-gray-600:focus-within {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-gray-800:hover {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
 }
 
 .hover\:before\:opacity-10:hover::before {
