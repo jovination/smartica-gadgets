@@ -656,10 +656,6 @@ video {
   top: 50%;
 }
 
-.start-0 {
-  inset-inline-start: 0px;
-}
-
 .z-50 {
   z-index: 50;
 }
@@ -682,6 +678,10 @@ video {
   margin-bottom: 0.25rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -692,6 +692,10 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.ml-0 {
+  margin-left: 0px;
 }
 
 .ml-1 {
@@ -732,18 +736,6 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.ml-0 {
-  margin-left: 0px;
-}
-
-.mt-0 {
-  margin-top: 0px;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
 }
 
 .block {
@@ -794,10 +786,6 @@ video {
   height: 1.25rem;
 }
 
-.h-6 {
-  height: 1.5rem;
-}
-
 .h-\[1px\] {
   height: 1px;
 }
@@ -806,16 +794,12 @@ video {
   height: auto;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .h-screen {
   height: 100vh;
-}
-
-.h-4 {
-  height: 1rem;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .w-1 {
@@ -842,10 +826,6 @@ video {
   width: 1.25rem;
 }
 
-.w-6 {
-  width: 1.5rem;
-}
-
 .w-\[20px\] {
   width: 20px;
 }
@@ -868,14 +848,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-4 {
-  width: 1rem;
-}
-
-.w-8 {
-  width: 2rem;
 }
 
 .max-w-4xl {
@@ -995,6 +967,10 @@ video {
   overflow-x: auto;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .rounded-3xl {
   border-radius: 1.5rem;
 }
@@ -1013,10 +989,6 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
 }
 
 .rounded-t-\[40px\] {
@@ -1050,6 +1022,10 @@ video {
   background-color: var(--primary-green);
 }
 
+.bg-\[--tertiary-green\] {
+  background-color: var(--tertiary-green);
+}
+
 .bg-\[--white-faded\] {
   background-color: var(--white-faded);
 }
@@ -1076,38 +1052,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\] {
-  background-color: ;
-}
-
-.bg-\[--prim\] {
-  background-color: var(--prim);
-}
-
-.bg-\[--secondary\] {
-  background-color: var(--secondary);
-}
-
-.bg-\[--secondary-green\] {
-  background-color: var(--secondary-green);
-}
-
-.bg-\[--ry-green\] {
-  background-color: var(--ry-green);
-}
-
-.bg-\[--tery-green\] {
-  background-color: var(--tery-green);
-}
-
-.bg-\[--tetiary-green\] {
-  background-color: var(--tetiary-green);
-}
-
-.bg-\[--tertiary-green\] {
-  background-color: var(--tertiary-green);
 }
 
 .bg-opacity-50 {
