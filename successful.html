@@ -187,5 +187,37 @@
         }
     </style>
         <script src="script.js"></script>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyBJO9A8QCJDpFfx41Cvw3h5Vpid9XkluXA",
+              authDomain: "smartica-gadgets-5cab9.firebaseapp.com",
+              projectId: "smartica-gadgets-5cab9",
+              storageBucket: "smartica-gadgets-5cab9.firebasestorage.app",
+              messagingSenderId: "209756483347",
+              appId: "1:209756483347:web:b3728fb45a572d19dcf4e6",
+              measurementId: "G-Y66C7L37FD"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+          </script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y66C7L37FD"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-Y66C7L37FD');
+        </script>
 </body>
 </html>
