@@ -574,6 +574,117 @@ input:focus, button:focus {
       updatePrice();
     }
   });
+
+  const styles = `
+.slide-up {
+  transform: translateY(50%) !important;
+}
+
+.slide-down {
+  transform: translateY(95%);
+}
+
+.transition-custom {
+  transition: transform 0.3s ease-in-out;
+}
+
+.panel-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+}
+
+@media (min-width: 768px) {
+  .panel-overlay {
+    position: relative;
+    transform: none !important;
+  }
+}
+`;
+
+// Create and append style element
+const styleSheet = document.createElement("style");
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
+
+// Get the white panel and scroll handle elements
+const whitePanel = document.querySelector('.bg-white');
+const scrollHandle = document.getElementById('scrollToProductItem');
+const mainGrid = document.querySelector('.grid');
+
+// Add necessary classes for sliding functionality
+whitePanel.classList.add('transition-custom', 'slide-down', 'panel-overlay');
+
+// Ensure the main grid remains full height
+mainGrid.style.minHeight = '100vh';
+
+// Variables for touch handling
+let startY = 0;
+let currentY = 0;
+let initialTransform = 95; // Starting position (95% down)
+
+// Toggle slide on handle click
+let isOpen = false;
+scrollHandle.addEventListener('click', (e) => {
+  e.preventDefault();
+  isOpen = !isOpen;
+  
+  if (isOpen) {
+    whitePanel.classList.remove('slide-down');
+    whitePanel.classList.add('slide-up');
+  } else {
+    whitePanel.classList.remove('slide-up');
+    whitePanel.classList.add('slide-down');
+  }
+});
+
+// Touch event handlers
+whitePanel.addEventListener('touchstart', (e) => {
+  startY = e.touches[0].clientY;
+  initialTransform = isOpen ? 50 : 95; // Current position when touch starts
+  whitePanel.style.transition = 'none'; // Remove transition during drag
+});
+
+whitePanel.addEventListener('touchmove', (e) => {
+  currentY = e.touches[0].clientY;
+  const deltaY = currentY - startY;
+  const newTransformPercentage = initialTransform + (deltaY / window.innerHeight) * 100;
+  
+  // Limit the drag range between 50% and 95%
+  if (newTransformPercentage >= 50 && newTransformPercentage <= 95) {
+    whitePanel.style.transform = `translateY(${newTransformPercentage}%)`;
+  }
+});
+
+whitePanel.addEventListener('touchend', () => {
+  whitePanel.style.transition = 'transform 0.3s ease-in-out'; // Restore transition
+  const currentTransform = parseFloat(whitePanel.style.transform.replace('translateY(', ''));
+  
+  // Determine whether to snap up or down based on current position
+  if (currentTransform < 70) { // If panel is dragged more than halfway up
+    isOpen = true;
+    whitePanel.classList.remove('slide-down');
+    whitePanel.classList.add('slide-up');
+  } else {
+    isOpen = false;
+    whitePanel.classList.remove('slide-up');
+    whitePanel.classList.add('slide-down');
+  }
+});
+
+// Optional: Close panel when clicking outside on mobile
+document.addEventListener('click', (e) => {
+  if (window.innerWidth < 768 && 
+      isOpen && 
+      !whitePanel.contains(e.target) && 
+      !scrollHandle.contains(e.target)) {
+    isOpen = false;
+    whitePanel.classList.remove('slide-up');
+    whitePanel.classList.add('slide-down');
+  }
+});
   
   productCards.forEach((card, index) => {
     if (index === 0) {
